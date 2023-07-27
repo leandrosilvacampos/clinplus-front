@@ -9,9 +9,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatListModule } from '@angular/material/list';
+import { HomeComponent } from './components/home/home.component';
+import { MySchedulesComponent } from './components/my-schedules/my-schedules.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, HomeComponent, MySchedulesComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

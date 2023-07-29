@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { NewScheduleDialogComponent } from '../new-schedule-dialog/new-schedule-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -15,4 +17,20 @@ export class HomeComponent {
        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
   );
+
+  animal: string = '';
+  name: string = '';
+
+  constructor(public dialog: MatDialog) {}
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(NewScheduleDialogComponent, {
+      data: { name: this.name, animal: this.animal },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+      this.animal = result;
+    });
+  }
 }

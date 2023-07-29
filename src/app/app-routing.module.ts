@@ -7,10 +7,12 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
+    data: { breadcrumb: 'Página inicial' },
   },
   {
     path: 'my-schedules',
     component: MySchedulesComponent,
+    data: { breadcrumb: 'Meus agendamentos' },
   },
 ];
 

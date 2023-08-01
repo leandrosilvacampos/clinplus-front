@@ -1,14 +1,58 @@
-<h1 mat-dialog-title>Hi {{ data.name }}</h1>
+<h1 mat-dialog-title>Agendar consulta</h1>
 <div mat-dialog-content>
-  <p>What's your favorite animal?</p>
-  <mat-form-field>
-    <mat-label>Favorite Animal</mat-label>
-    <input matInput [(ngModel)]="data.animal" />
-  </mat-form-field>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form__container">
+      <mat-form-field appearance="outline">
+        <mat-label>Tipo</mat-label>
+        <mat-select formControlName="type">
+          <mat-option value="in-person"> Presencial </mat-option>
+          <mat-option value="teleconsultation"> Teleconsulta </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Data</mat-label>
+        <input matInput type="date" formControlName="date" />
+        <mat-icon matSuffix>schedule</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Horário</mat-label>
+        <mat-select formControlName="time">
+          <mat-option value="1"> 13:00 - 13:45 </mat-option>
+          <mat-option value="2"> 13:45 - 14:30 </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Convênio</mat-label>
+        <mat-select formControlName="agreement">
+          <mat-option value="1">Particular</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Forma de pagamento</mat-label>
+        <mat-select formControlName="paymentMethod">
+          <mat-option value="1">Dinheiro</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Unidade/Filial</mat-label>
+        <mat-select formControlName="unit">
+          <mat-option value="1">Barra Do Garças - MT</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Motivo da consulta</mat-label>
+        <input matInput formControlName="reason" />
+      </mat-form-field>
+    </div>
+  </form>
 </div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>
-    Ok
-  </button>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button (click)="onSubmit()" cdkFocusInitial>Agendar</button>
 </div>

@@ -14,9 +14,11 @@ import { MySchedulesComponent } from './components/my-schedules/my-schedules.com
 import { BreadcrumbModule } from 'xng-breadcrumb';
 import { MatTableModule } from '@angular/material/table';
 import { NewScheduleDialogComponent } from './components/new-schedule-dialog/new-schedule-dialog.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     FormsModule,
     MatDialogModule,
     MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -26,6 +26,7 @@ export class HomeComponent {
   openDialog(): void {
     const dialogRef = this.dialog.open(NewScheduleDialogComponent, {
       data: { name: this.name, animal: this.animal },
+      width: '700px',
     });
 
     dialogRef.afterClosed().subscribe((result) => {

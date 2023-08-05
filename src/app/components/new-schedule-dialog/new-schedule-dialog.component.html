@@ -27,21 +27,47 @@
       <mat-form-field appearance="outline">
         <mat-label>Convênio</mat-label>
         <mat-select formControlName="agreement">
-          <mat-option value="1">Particular</mat-option>
+          <ng-container *ngIf="agreements$ | async as agreements; else noData">
+            <mat-option
+              [value]="agreement.id"
+              *ngFor="let agreement of agreements"
+              >{{ agreement.name }}</mat-option
+            >
+          </ng-container>
+
+          <ng-template #noData>No Data Available</ng-template>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Forma de pagamento</mat-label>
         <mat-select formControlName="paymentMethod">
-          <mat-option value="1">Dinheiro</mat-option>
+          <ng-container
+            *ngIf="paymentMethods$ | async as paymentMethods; else noData"
+          >
+            <mat-option
+              [value]="paymentMethod.id"
+              *ngFor="let paymentMethod of paymentMethods"
+              >{{ paymentMethod.name }}</mat-option
+            >
+          </ng-container>
+
+          <ng-template #noData>No Data Available</ng-template>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Unidade/Filial</mat-label>
         <mat-select formControlName="unit">
-          <mat-option value="1">Barra Do Garças - MT</mat-option>
+          <ng-container *ngIf="companies$ | async as companies; else noData">
+            <mat-option
+              [value]="company.id"
+              *ngFor="let company of companies"
+              >{{ company.fantasyName }}</mat-option
+            >
+          </ng-container>
+
+          <ng-template #noData>No Data Available</ng-template>
         </mat-select>
       </mat-form-field>
 

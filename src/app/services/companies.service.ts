@@ -13,4 +13,11 @@ export class CompaniesService {
   readCompanies(): Observable<ICompany[]> {
     return this.http.get<ICompany[]>(`${BASE_URL}/companies`);
   }
+
+  readAvailableCompanyHours(id: number, date: Date): Observable<string[]> {
+    return this.http.get<string[]>(
+      `${BASE_URL}/companies/${id}/available-hours`,
+      { params: { date: date.toString() } }
+    );
+  }
 }

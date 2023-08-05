@@ -2,31 +2,61 @@
 <div mat-dialog-content>
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="form__container">
-      <mat-form-field appearance="outline">
-        <mat-label>Tipo</mat-label>
-        <mat-select formControlName="type">
-          <mat-option value="in-person"> Presencial </mat-option>
-          <mat-option value="teleconsultation"> Teleconsulta </mat-option>
+      <mat-form-field
+        class="form__container__field form__container__field--full-size"
+        appearance="outline"
+      >
+        <mat-label>Unidade/Filial</mat-label>
+        <mat-select
+          formControlName="companyId"
+          (ngModelChange)="onCompanyIdChange()"
+        >
+          <ng-container *ngIf="companies$ | async as companies; else noData">
+            <mat-option
+              [value]="company.id"
+              *ngFor="let company of companies"
+              >{{ company.fantasyName }}</mat-option
+            >
+          </ng-container>
+
+          <ng-template #noData>No Data Available</ng-template>
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field class="form__container__field" appearance="outline">
         <mat-label>Data</mat-label>
-        <input matInput type="date" formControlName="date" />
-        <mat-icon matSuffix>schedule</mat-icon>
+        <input
+          matInput
+          [matDatepicker]="picker1"
+          formControlName="date"
+          (ngModelChange)="onDateChange()"
+        />
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker1"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field class="form__container__field" appearance="outline">
         <mat-label>Horário</mat-label>
         <mat-select formControlName="time">
-          <mat-option value="1"> 13:00 - 13:45 </mat-option>
-          <mat-option value="2"> 13:45 - 14:30 </mat-option>
+          <ng-container *ngIf="companyHours.length; else noData">
+            <mat-option
+              [value]="companyHour"
+              *ngFor="let companyHour of companyHours"
+              >{{ companyHour }}</mat-option
+            >
+          </ng-container>
+
+          <ng-template #noData>No Data Available</ng-template>
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field class="form__container__field" appearance="outline">
         <mat-label>Convênio</mat-label>
-        <mat-select formControlName="agreement">
+        <mat-select formControlName="agreementId">
           <ng-container *ngIf="agreements$ | async as agreements; else noData">
             <mat-option
               [value]="agreement.id"
@@ -39,9 +69,9 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field class="form__container__field" appearance="outline">
         <mat-label>Forma de pagamento</mat-label>
-        <mat-select formControlName="paymentMethod">
+        <mat-select formControlName="paymentMethodId">
           <ng-container
             *ngIf="paymentMethods$ | async as paymentMethods; else noData"
           >
@@ -56,22 +86,10 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Unidade/Filial</mat-label>
-        <mat-select formControlName="unit">
-          <ng-container *ngIf="companies$ | async as companies; else noData">
-            <mat-option
-              [value]="company.id"
-              *ngFor="let company of companies"
-              >{{ company.fantasyName }}</mat-option
-            >
-          </ng-container>
-
-          <ng-template #noData>No Data Available</ng-template>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
+      <mat-form-field
+        class="form__container__field form__container__field--full-size"
+        appearance="outline"
+      >
         <mat-label>Motivo da consulta</mat-label>
         <input matInput formControlName="reason" />
       </mat-form-field>

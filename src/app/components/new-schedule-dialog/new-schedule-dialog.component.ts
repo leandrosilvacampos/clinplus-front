@@ -31,18 +31,21 @@ export class NewScheduleDialogComponent implements OnInit {
 
   agreements$: Observable<IAgreement[]> = new Observable<IAgreement[]>();
   companies$: Observable<ICompany[]> = new Observable<ICompany[]>();
+  companyHours: string[] = [];
   paymentMethods$: Observable<IPaymentMethod[]> = new Observable<
     IPaymentMethod[]
   >();
 
   form: FormGroup = this._formBuilder.group({
-    type: ['', Validators.required],
-    date: ['', Validators.required],
-    time: ['', Validators.required],
-    agreement: ['', Validators.required],
-    paymentMethod: ['', Validators.required],
-    unit: ['', Validators.required],
-    reason: [''],
+    date: [{ value: undefined, disabled: true }, Validators.required],
+    time: [{ value: undefined, disabled: true }, Validators.required],
+    agreementId: [{ value: undefined, disabled: true }, Validators.required],
+    paymentMethodId: [
+      { value: undefined, disabled: true },
+      Validators.required,
+    ],
+    companyId: [undefined, Validators.required],
+    reason: [{ value: undefined, disabled: true }],
   });
 
   ngOnInit() {
@@ -58,6 +61,36 @@ export class NewScheduleDialogComponent implements OnInit {
   onSubmit() {
     if (this.form.valid) {
       console.log(this.form.value);
+    }
+  }
+
+  onCompanyIdChange() {
+    const companyId = this.form.get('companyId')?.value;
+
+    if (companyId) {
+      this.form.get('date')?.enable();
+      this.form.get('agreementId')?.enable();
+      this.form.get('paymentMethodId')?.enable();
+      this.form.get('reason')?.enable();
+    }
+  }
+
+  onDateChange() {
+    const date = this.form.get('date')?.value;
+    const companyId = this.form.get('companyId')?.value;
+
+    console.log('date: ', date);
+
+    if (date && companyId) {
+      this._companiesService
+        .readAvailableCompanyHours(companyId, date)
+        .subscribe((res) => {
+          console.log('res: ', res);
+
+          this.companyHours = res;
+
+          this.form.get('time')?.enable();
+        });
     }
   }
 }

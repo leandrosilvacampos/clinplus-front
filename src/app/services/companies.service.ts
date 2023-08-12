@@ -14,10 +14,14 @@ export class CompaniesService {
     return this.http.get<ICompany[]>(`${BASE_URL}/companies`);
   }
 
-  readAvailableCompanyHours(id: number, date: Date): Observable<string[]> {
+  readAvailableCompanyHours(
+    id: number,
+    date: string,
+    timezone: string
+  ): Observable<string[]> {
     return this.http.get<string[]>(
       `${BASE_URL}/companies/${id}/available-hours`,
-      { params: { date: date.toString() } }
+      { params: { date, timezone } }
     );
   }
 }

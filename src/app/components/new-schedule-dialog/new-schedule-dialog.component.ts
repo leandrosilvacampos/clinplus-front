@@ -8,6 +8,7 @@ import { IPaymentMethod } from 'src/app/interfaces/payment-method';
 import { AgreementsService } from 'src/app/services/agreements.service';
 import { CompaniesService } from 'src/app/services/companies.service';
 import { PaymentMethodsService } from 'src/app/services/payment-methods.service';
+import { DatePipe } from '@angular/common';
 
 export interface DialogData {
   animal: string;
@@ -24,6 +25,7 @@ export class NewScheduleDialogComponent implements OnInit {
     private _agreementsService: AgreementsService,
     private _companiesService: CompaniesService,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    private _datePipe: DatePipe,
     public dialogRef: MatDialogRef<NewScheduleDialogComponent>,
     private _formBuilder: FormBuilder,
     private _paymentMethodsService: PaymentMethodsService
@@ -76,14 +78,16 @@ export class NewScheduleDialogComponent implements OnInit {
   }
 
   onDateChange() {
-    const date = this.form.get('date')?.value;
+    const date = this._datePipe.transform(
+      this.form.get('date')?.value,
+      'yyyy-MM-dd'
+    );
     const companyId = this.form.get('companyId')?.value;
-
-    console.log('date: ', date);
+    const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
     if (date && companyId) {
       this._companiesService
-        .readAvailableCompanyHours(companyId, date)
+        .readAvailableCompanyHours(companyId, date, userTimezone)
         .subscribe((res) => {
           console.log('res: ', res);
 

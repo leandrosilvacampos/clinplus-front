@@ -10,7 +10,9 @@ import { BASE_URL } from '../shared/variables';
 export class AgreementsService {
   constructor(private http: HttpClient) {}
 
-  readAgreements(): Observable<IAgreement[]> {
-    return this.http.get<IAgreement[]>(`${BASE_URL}/agreements`);
+  readAgreements(companyId: number): Observable<IAgreement[]> {
+    return this.http.get<IAgreement[]>(
+      `${BASE_URL}/companies/${companyId}/agreements`
+    );
   }
 }

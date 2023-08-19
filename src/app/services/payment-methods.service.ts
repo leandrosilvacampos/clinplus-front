@@ -10,7 +10,9 @@ import { IPaymentMethod } from '../interfaces/payment-method';
 export class PaymentMethodsService {
   constructor(private http: HttpClient) {}
 
-  readPaymentMethods(): Observable<IPaymentMethod[]> {
-    return this.http.get<IPaymentMethod[]>(`${BASE_URL}/payment-methods`);
+  readPaymentMethods(companyId: number): Observable<IPaymentMethod[]> {
+    return this.http.get<IPaymentMethod[]>(
+      `${BASE_URL}/companies/${companyId}/payment-methods`
+    );
   }
 }

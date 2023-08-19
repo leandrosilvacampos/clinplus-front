@@ -31,12 +31,10 @@ export class NewScheduleDialogComponent implements OnInit {
     private _paymentMethodsService: PaymentMethodsService
   ) {}
 
-  agreements$: Observable<IAgreement[]> = new Observable<IAgreement[]>();
+  agreements: IAgreement[] = [];
   companies$: Observable<ICompany[]> = new Observable<ICompany[]>();
   companyHours: string[] = [];
-  paymentMethods$: Observable<IPaymentMethod[]> = new Observable<
-    IPaymentMethod[]
-  >();
+  paymentMethods: IPaymentMethod[] = [];
 
   form: FormGroup = this._formBuilder.group({
     date: [{ value: undefined, disabled: true }, Validators.required],
@@ -51,9 +49,7 @@ export class NewScheduleDialogComponent implements OnInit {
   });
 
   ngOnInit() {
-    this.agreements$ = this._agreementsService.readAgreements();
     this.companies$ = this._companiesService.readCompanies();
-    this.paymentMethods$ = this._paymentMethodsService.readPaymentMethods();
   }
 
   onNoClick(): void {
@@ -70,6 +66,16 @@ export class NewScheduleDialogComponent implements OnInit {
     const companyId = this.form.get('companyId')?.value;
 
     if (companyId) {
+      this._paymentMethodsService
+        .readPaymentMethods(companyId)
+        .subscribe((res) => {
+          this.paymentMethods = res;
+        });
+
+      this._agreementsService.readAgreements(companyId).subscribe((res) => {
+        this.agreements = res;
+      });
+
       this.form.get('date')?.enable();
       this.form.get('agreementId')?.enable();
       this.form.get('paymentMethodId')?.enable();

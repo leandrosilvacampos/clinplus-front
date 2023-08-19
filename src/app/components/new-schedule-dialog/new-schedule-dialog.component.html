@@ -57,7 +57,7 @@
       <mat-form-field class="form__container__field" appearance="outline">
         <mat-label>Convênio</mat-label>
         <mat-select formControlName="agreementId">
-          <ng-container *ngIf="agreements$ | async as agreements; else noData">
+          <ng-container *ngIf="agreements?.length; else noData">
             <mat-option
               [value]="agreement.id"
               *ngFor="let agreement of agreements"
@@ -72,9 +72,7 @@
       <mat-form-field class="form__container__field" appearance="outline">
         <mat-label>Forma de pagamento</mat-label>
         <mat-select formControlName="paymentMethodId">
-          <ng-container
-            *ngIf="paymentMethods$ | async as paymentMethods; else noData"
-          >
+          <ng-container *ngIf="paymentMethods?.length; else noData">
             <mat-option
               [value]="paymentMethod.id"
               *ngFor="let paymentMethod of paymentMethods"

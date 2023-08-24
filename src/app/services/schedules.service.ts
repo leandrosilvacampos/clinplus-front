@@ -8,7 +8,7 @@ import { ICreateScheduleDTO, IScheduling } from '../interfaces/scheduling';
 @Injectable({
   providedIn: 'root',
 })
-export class SchedulingService {
+export class SchedulesService {
   constructor(private http: HttpClient) {}
 
   createSchedule(

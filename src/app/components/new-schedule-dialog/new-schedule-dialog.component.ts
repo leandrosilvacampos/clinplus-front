@@ -9,6 +9,7 @@ import { AgreementsService } from 'src/app/services/agreements.service';
 import { CompaniesService } from 'src/app/services/companies.service';
 import { PaymentMethodsService } from 'src/app/services/payment-methods.service';
 import { DatePipe } from '@angular/common';
+import { SchedulesService } from 'src/app/services/schedules.service';
 
 export interface DialogData {
   animal: string;
@@ -28,13 +29,15 @@ export class NewScheduleDialogComponent implements OnInit {
     private _datePipe: DatePipe,
     public dialogRef: MatDialogRef<NewScheduleDialogComponent>,
     private _formBuilder: FormBuilder,
-    private _paymentMethodsService: PaymentMethodsService
+    private _paymentMethodsService: PaymentMethodsService,
+    private _schedulesService: SchedulesService
   ) {}
 
   agreements: IAgreement[] = [];
   companies$: Observable<ICompany[]> = new Observable<ICompany[]>();
   companyHours: string[] = [];
   paymentMethods: IPaymentMethod[] = [];
+  userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   form: FormGroup = this._formBuilder.group({
     date: [{ value: undefined, disabled: true }, Validators.required],
@@ -59,6 +62,18 @@ export class NewScheduleDialogComponent implements OnInit {
   onSubmit() {
     if (this.form.valid) {
       console.log(this.form.value);
+
+      const { companyId, ...formValue } = this.form.value;
+
+      this._schedulesService
+        .createSchedule(companyId, {
+          ...formValue,
+          timezone: this.userTimezone,
+          date: this._datePipe.transform(formValue.date, 'yyyy-MM-dd'),
+        })
+        .subscribe((res) => {
+          console.log('res: ', res);
+        });
     }
   }
 
@@ -89,14 +104,11 @@ export class NewScheduleDialogComponent implements OnInit {
       'yyyy-MM-dd'
     );
     const companyId = this.form.get('companyId')?.value;
-    const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
     if (date && companyId) {
       this._companiesService
-        .readAvailableCompanyHours(companyId, date, userTimezone)
+        .readAvailableCompanyHours(companyId, date, this.userTimezone)
         .subscribe((res) => {
-          console.log('res: ', res);
-
           this.companyHours = res;
 
           this.form.get('time')?.enable();

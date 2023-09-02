@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { NewScheduleDialogComponent } from '../new-schedule-dialog/new-schedule-dialog.component';
+import { NewScheduleDialogComponent } from 'src/app/components/new-schedule-dialog/new-schedule-dialog.component';
 
 @Component({
   selector: 'app-home',

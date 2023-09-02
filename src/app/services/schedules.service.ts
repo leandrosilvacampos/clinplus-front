@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IPaymentMethod } from '../interfaces/payment-method';
-import { BASE_URL } from '../shared/variables';
 import { ICreateScheduleDTO, IScheduling } from '../interfaces/scheduling';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +15,7 @@ export class SchedulesService {
     data: ICreateScheduleDTO
   ): Observable<IScheduling> {
     return this.http.post<IScheduling>(
-      `${BASE_URL}/companies/${companyId}/schedules`,
+      `${environment.baseUrl}/companies/${companyId}/schedules`,
       data
     );
   }

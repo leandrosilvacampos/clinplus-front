@@ -1,0 +1,52 @@
+<div class="login">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title class="login__title">Login</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="form" class="login__form">
+        <mat-form-field class="login__form__field">
+          <input
+            matInput
+            placeholder="E-mail"
+            formControlName="email"
+            name="email"
+            required
+          />
+          <mat-error *ngIf="form.get('email')?.errors?.['required']">
+            E-Mail obrigatório
+          </mat-error>
+
+          <mat-error *ngIf="form.get('email')?.errors?.['email']">
+            E-Mail inválido
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="login__form__field">
+          <input
+            matInput
+            type="password"
+            placeholder="Senha"
+            formControlName="password"
+            name="password"
+            required
+          />
+          <mat-error *ngIf="form.get('password')?.errors?.['required']">
+            Senha obrigatória
+          </mat-error>
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button
+        [disabled]="form.invalid"
+        mat-raised-button
+        color="primary"
+        type="submit"
+        class="login__button"
+        (click)="login()"
+      >
+        Login
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

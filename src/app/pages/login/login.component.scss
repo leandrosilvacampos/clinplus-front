@@ -1,0 +1,25 @@
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+
+  mat-card {
+    max-width: 400px;
+    width: 100%;
+  }
+
+  .login__title {
+    margin-bottom: 16px;
+  }
+
+  .login__form__field {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+
+  .login__button {
+    width: 100%;
+  }
+}

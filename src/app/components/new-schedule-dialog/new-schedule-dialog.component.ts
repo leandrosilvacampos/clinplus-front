@@ -39,19 +39,21 @@ export class NewScheduleDialogComponent implements OnInit {
   paymentMethods: IPaymentMethod[] = [];
   userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-  form: FormGroup = this._formBuilder.group({
-    date: [{ value: undefined, disabled: true }, Validators.required],
-    time: [{ value: undefined, disabled: true }, Validators.required],
-    agreementId: [{ value: undefined, disabled: true }, Validators.required],
-    paymentMethodId: [
-      { value: undefined, disabled: true },
-      Validators.required,
-    ],
-    companyId: [undefined, Validators.required],
-    reason: [{ value: undefined, disabled: true }],
-  });
+  form!: FormGroup;
 
   ngOnInit() {
+    this.form = this._formBuilder.group({
+      date: [{ value: undefined, disabled: true }, Validators.required],
+      time: [{ value: undefined, disabled: true }, Validators.required],
+      agreementId: [{ value: undefined, disabled: true }, Validators.required],
+      paymentMethodId: [
+        { value: undefined, disabled: true },
+        Validators.required,
+      ],
+      companyId: [undefined, Validators.required],
+      reason: [{ value: undefined, disabled: true }],
+    });
+
     this.companies$ = this._companiesService.readCompanies();
   }
 

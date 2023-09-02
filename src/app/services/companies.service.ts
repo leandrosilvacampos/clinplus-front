@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BASE_URL } from '../shared/variables';
 import { ICompany } from '../interfaces/company';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +11,7 @@ export class CompaniesService {
   constructor(private http: HttpClient) {}
 
   readCompanies(): Observable<ICompany[]> {
-    return this.http.get<ICompany[]>(`${BASE_URL}/companies`);
+    return this.http.get<ICompany[]>(`${environment.baseUrl}/companies`);
   }
 
   readAvailableCompanyHours(
@@ -20,7 +20,7 @@ export class CompaniesService {
     timezone: string
   ): Observable<string[]> {
     return this.http.get<string[]>(
-      `${BASE_URL}/companies/${id}/available-hours`,
+      `${environment.baseUrl}/companies/${id}/available-hours`,
       { params: { date, timezone } }
     );
   }

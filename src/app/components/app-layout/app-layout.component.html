@@ -1,0 +1,35 @@
+<div class="app" [class.isMobile]="mobileQuery.matches">
+  <mat-toolbar color="primary" class="app__toolbar">
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>ClinPlus</span>
+  </mat-toolbar>
+
+  <mat-sidenav-container
+    class="app__sidenavContainer"
+    [style.marginTop.px]="mobileQuery.matches ? 56 : 0"
+  >
+    <mat-sidenav
+      #sidenav
+      [(opened)]="opened"
+      [mode]="mobileQuery.matches ? 'over' : 'side'"
+      [fixedInViewport]="mobileQuery.matches"
+      fixedTopGap="56"
+      class="app__sidenavContainer__sidenav"
+      ><mat-nav-list>
+        <mat-list-item routerLink="/">
+          <mat-icon>home</mat-icon> Página inicial
+        </mat-list-item>
+        <mat-list-item routerLink="/my-schedules">
+          <mat-icon>calendar_today</mat-icon> Meus agendamentos
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <xng-breadcrumb></xng-breadcrumb>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

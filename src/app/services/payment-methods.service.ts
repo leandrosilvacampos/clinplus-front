@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { BASE_URL } from '../shared/variables';
 import { IPaymentMethod } from '../interfaces/payment-method';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,7 @@ export class PaymentMethodsService {
 
   readPaymentMethods(companyId: number): Observable<IPaymentMethod[]> {
     return this.http.get<IPaymentMethod[]>(
-      `${BASE_URL}/companies/${companyId}/payment-methods`
+      `${environment.baseUrl}/companies/${companyId}/payment-methods`
     );
   }
 }

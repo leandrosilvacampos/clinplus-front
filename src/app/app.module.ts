@@ -23,6 +23,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { DatePipe } from '@angular/common';
+import { LoginComponent } from './pages/login/login.component';
+import { AppLayoutComponent } from './components/app-layout/app-layout.component';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -30,6 +33,8 @@ import { DatePipe } from '@angular/common';
     HomeComponent,
     MySchedulesComponent,
     NewScheduleDialogComponent,
+    LoginComponent,
+    AppLayoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,6 +56,7 @@ import { DatePipe } from '@angular/common';
     HttpClientModule,
     MatNativeDateModule,
     MatDatepickerModule,
+    MatCardModule,
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'pt-BR' }, DatePipe],
   bootstrap: [AppComponent],

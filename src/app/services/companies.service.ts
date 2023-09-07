@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ICompany } from '../interfaces/company';
+import { ICompany } from '../core/interfaces/company';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment.development';
 @Injectable({
   providedIn: 'root',
 })
-export class CompaniesService {
+export class CompaniesHttpService {
   constructor(private http: HttpClient) {}
 
   readCompanies(): Observable<ICompany[]> {

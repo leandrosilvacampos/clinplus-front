@@ -2,14 +2,14 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { IAgreement } from 'src/app/interfaces/agreement';
-import { ICompany } from 'src/app/interfaces/company';
-import { IPaymentMethod } from 'src/app/interfaces/payment-method';
-import { AgreementsService } from 'src/app/services/agreements.service';
-import { CompaniesService } from 'src/app/services/companies.service';
-import { PaymentMethodsService } from 'src/app/services/payment-methods.service';
+import { IAgreement } from 'src/app/core/interfaces/agreement';
+import { ICompany } from 'src/app/core/interfaces/company';
+import { IPaymentMethod } from 'src/app/core/interfaces/payment-method';
+import { AgreementsHttpService } from 'src/app/services/agreements.service';
+import { CompaniesHttpService } from 'src/app/services/companies.service';
+import { PaymentMethodsHttpService } from 'src/app/services/payment-methods.service';
 import { DatePipe } from '@angular/common';
-import { SchedulesService } from 'src/app/services/schedules.service';
+import { SchedulesHttpService } from 'src/app/services/schedules.service';
 
 export interface DialogData {
   animal: string;
@@ -23,14 +23,14 @@ export interface DialogData {
 })
 export class NewScheduleDialogComponent implements OnInit {
   constructor(
-    private _agreementsService: AgreementsService,
-    private _companiesService: CompaniesService,
+    private _agreementsService: AgreementsHttpService,
+    private _companiesService: CompaniesHttpService,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private _datePipe: DatePipe,
     public dialogRef: MatDialogRef<NewScheduleDialogComponent>,
     private _formBuilder: FormBuilder,
-    private _paymentMethodsService: PaymentMethodsService,
-    private _schedulesService: SchedulesService
+    private _paymentMethodsService: PaymentMethodsHttpService,
+    private _schedulesService: SchedulesHttpService
   ) {}
 
   agreements: IAgreement[] = [];

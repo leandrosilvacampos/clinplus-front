@@ -7,10 +7,12 @@
 
     <span class="app__toolbar__spacer"></span>
 
-    <mat-list>
+    <mat-list class="app__toolbar__profile">
       <mat-list-item>
-        <div matListItemTitle>Leandro</div>
-        <div matListItemLine>Sair</div>
+        <div matListItemTitle>{{ firstName }}</div>
+        <div matListItemLine>
+          <a class="app__toolbar__profile__logout" (click)="logout()">Sair</a>
+        </div>
       </mat-list-item>
       <mat-divider></mat-divider>
     </mat-list>

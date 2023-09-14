@@ -5,11 +5,13 @@ import { MySchedulesComponent } from './pages/my-schedules/my-schedules.componen
 import { LoginComponent } from './pages/login/login.component';
 import { AppComponent } from './app.component';
 import { AppLayoutComponent } from './components/app-layout/app-layout.component';
+import { authGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: AppLayoutComponent,
+    canActivate: [authGuard],
     children: [
       {
         path: '',

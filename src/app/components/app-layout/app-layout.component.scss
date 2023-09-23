@@ -38,6 +38,19 @@
   cursor: pointer;
 }
 
+.app__sidenavContainer_content__breadcrumb {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+::ng-deep .xng-breadcrumb-root {
+  padding: 0px 0px 20px 0px;
+}
+
+.app__sidenavContainer_content {
+  padding: 50px;
+}
+
 ::ng-deep .mat-mdc-list-item-unscoped-content {
   display: flex;
   align-items: center;

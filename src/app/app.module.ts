@@ -27,6 +27,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { AppLayoutComponent } from './components/app-layout/app-layout.component';
 import { MatCardModule } from '@angular/material/card';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
     MatNativeDateModule,
     MatDatepickerModule,
     MatCardModule,
+    MatSnackBarModule,
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },

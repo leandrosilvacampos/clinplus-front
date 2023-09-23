@@ -19,4 +19,10 @@ export class SchedulesHttpService {
       data
     );
   }
+
+  readUserSchedules(): Observable<IScheduling[]> {
+    return this.http.get<IScheduling[]>(
+      `${environment.baseUrl}/users/schedules`
+    );
+  }
 }

@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { IScheduling } from 'src/app/core/interfaces/scheduling';
+import { SchedulesHttpService } from 'src/app/services/schedules.service';
 
 export interface PeriodicElement {
   name: string;
@@ -25,7 +27,18 @@ const ELEMENT_DATA: PeriodicElement[] = [
   templateUrl: './my-schedules.component.html',
   styleUrls: ['./my-schedules.component.scss'],
 })
-export class MySchedulesComponent {
+export class MySchedulesComponent implements OnInit {
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = ELEMENT_DATA;
+  userSchedules: IScheduling[] = [];
+
+  constructor(private _schedulesHttpService: SchedulesHttpService) {}
+
+  ngOnInit(): void {
+    this._schedulesHttpService.readUserSchedules().subscribe((schedules) => {
+      console.log('schedules', schedules);
+
+      this.userSchedules = schedules;
+    });
+  }
 }

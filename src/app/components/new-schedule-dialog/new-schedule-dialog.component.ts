@@ -10,6 +10,8 @@ import { CompaniesHttpService } from 'src/app/services/companies.service';
 import { PaymentMethodsHttpService } from 'src/app/services/payment-methods.service';
 import { DatePipe } from '@angular/common';
 import { SchedulesHttpService } from 'src/app/services/schedules.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 export interface DialogData {
   animal: string;
@@ -29,7 +31,9 @@ export class NewScheduleDialogComponent implements OnInit {
     private _datePipe: DatePipe,
     public dialogRef: MatDialogRef<NewScheduleDialogComponent>,
     private _formBuilder: FormBuilder,
+    private _snackBar: MatSnackBar,
     private _paymentMethodsService: PaymentMethodsHttpService,
+    private _router: Router,
     private _schedulesService: SchedulesHttpService
   ) {}
 
@@ -73,8 +77,27 @@ export class NewScheduleDialogComponent implements OnInit {
           timezone: this.userTimezone,
           date: this._datePipe.transform(formValue.date, 'yyyy-MM-dd'),
         })
-        .subscribe((res) => {
-          console.log('res: ', res);
+        .subscribe({
+          next: (res) => {
+            this._snackBar.open('Consulta agendada com sucesso', 'Ok', {
+              horizontalPosition: 'center',
+              verticalPosition: 'bottom',
+              duration: 3000,
+              panelClass: ['success-snackbar'],
+            });
+
+            this.dialogRef.close();
+
+            this._router.navigate(['/my-schedules']);
+          },
+          error: (err) => {
+            this._snackBar.open('Ocorreu um erro ao agendar a consulta', 'Ok', {
+              horizontalPosition: 'center',
+              verticalPosition: 'bottom',
+              duration: 3000,
+              panelClass: ['error-snackbar'],
+            });
+          },
         });
     }
   }

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { CustomPaginator } from 'src/app/components/custom-paginator';
 import { IScheduling } from 'src/app/core/interfaces/scheduling';
 import { SchedulesHttpService } from 'src/app/services/schedules.service';
 
@@ -10,12 +13,11 @@ interface ITableData {
   company: string;
 }
 
-const TABLE_DATA: ITableData[] = [];
-
 @Component({
   selector: 'app-my-schedules',
   templateUrl: './my-schedules.component.html',
   styleUrls: ['./my-schedules.component.scss'],
+  providers: [{ provide: MatPaginatorIntl, useValue: CustomPaginator() }],
 })
 export class MySchedulesComponent implements OnInit {
   displayedColumns: string[] = [
@@ -26,7 +28,8 @@ export class MySchedulesComponent implements OnInit {
     'procedures',
     'actions',
   ];
-  dataSource: ITableData[] = TABLE_DATA;
+  dataSource = new MatTableDataSource<ITableData>([]);
+  tableData: ITableData[] = [];
 
   constructor(private _schedulesHttpService: SchedulesHttpService) {}
 
@@ -36,7 +39,7 @@ export class MySchedulesComponent implements OnInit {
       .subscribe((schedules: IScheduling[]) => {
         console.log('schedules', schedules);
 
-        this.dataSource = schedules.map((schedule) => {
+        this.tableData = schedules.map((schedule) => {
           return {
             code: schedule.id,
             date: this._formatDate(schedule.startDate, schedule.endDate),
@@ -45,7 +48,14 @@ export class MySchedulesComponent implements OnInit {
             company: schedule.company,
           };
         });
+
+        this.dataSource = new MatTableDataSource(this.tableData);
       });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   // Format date to format "dd/mm/yyyy hh:mm - hh:mm"

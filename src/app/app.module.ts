@@ -29,6 +29,7 @@ import { MatCardModule } from '@angular/material/card';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatCardModule,
     MatSnackBarModule,
     MatTooltipModule,
+    MatPaginatorModule,
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },

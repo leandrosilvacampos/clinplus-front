@@ -1,9 +1,9 @@
 export interface IScheduling {
-  id: number;
-  startDate: Date;
-  endDate: Date;
+  id: number | string;
+  startDate: string;
+  endDate: string;
+  status: string;
   procedures: string[];
-  agreement: string;
   company: string;
 }
 

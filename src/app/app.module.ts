@@ -28,6 +28,7 @@ import { AppLayoutComponent } from './components/app-layout/app-layout.component
 import { MatCardModule } from '@angular/material/card';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatDatepickerModule,
     MatCardModule,
     MatSnackBarModule,
+    MatTooltipModule,
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },

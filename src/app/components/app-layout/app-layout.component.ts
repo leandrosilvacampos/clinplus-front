@@ -49,8 +49,6 @@ export class AppLayoutComponent implements OnDestroy, OnInit {
 
     const results = this.user.name.split(/\s+/);
 
-    console.log(results);
-
     if (results) {
       return results[0];
     }

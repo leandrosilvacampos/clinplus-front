@@ -61,7 +61,8 @@ export class NewScheduleDialogComponent implements OnInit {
       companyId: [undefined, Validators.required],
       specialtyId: [{ value: undefined, disabled: true }, Validators.required],
       procedureId: [{ value: 1, disabled: true }, Validators.required],
-      reason: [{ value: undefined, disabled: true }],
+      procedureType: [{ value: 1, disabled: true }, Validators.required],
+      reason: [{ value: undefined, disabled: true }, Validators.required],
     });
 
     this.companies$ = this._companiesService.readCompanies();
@@ -80,6 +81,7 @@ export class NewScheduleDialogComponent implements OnInit {
       this._schedulesService
         .createSchedule(companyId, {
           ...formValue,
+          procedureId: 1,
           timezone: this.userTimezone,
           date: this._datePipe.transform(formValue.date, 'yyyy-MM-dd'),
         })

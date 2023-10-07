@@ -38,8 +38,6 @@ export class UserService {
     const token = this._authService.getToken();
     const user = jwtDecode(token) as IUser;
 
-    console.log('user:', user);
-
     this._userSubject.next(user);
   }
 }

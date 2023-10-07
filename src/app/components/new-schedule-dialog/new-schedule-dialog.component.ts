@@ -12,6 +12,8 @@ import { DatePipe } from '@angular/common';
 import { SchedulesHttpService } from 'src/app/services/schedules.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { ISpecialty } from 'src/app/core/interfaces/specialty';
+import { SpecialtiesHttpService } from 'src/app/services/specialties.service';
 
 export interface DialogData {
   animal: string;
@@ -34,13 +36,15 @@ export class NewScheduleDialogComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private _paymentMethodsService: PaymentMethodsHttpService,
     private _router: Router,
-    private _schedulesService: SchedulesHttpService
+    private _schedulesService: SchedulesHttpService,
+    private _specialtiesService: SpecialtiesHttpService
   ) {}
 
   agreements: IAgreement[] = [];
   companies$: Observable<ICompany[]> = new Observable<ICompany[]>();
   companyHours: string[] = [];
   paymentMethods: IPaymentMethod[] = [];
+  specialties: ISpecialty[] = [];
   userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   form!: FormGroup;
@@ -55,6 +59,8 @@ export class NewScheduleDialogComponent implements OnInit {
         Validators.required,
       ],
       companyId: [undefined, Validators.required],
+      specialtyId: [{ value: undefined, disabled: true }, Validators.required],
+      procedureId: [{ value: 1, disabled: true }, Validators.required],
       reason: [{ value: undefined, disabled: true }],
     });
 
@@ -116,9 +122,16 @@ export class NewScheduleDialogComponent implements OnInit {
         this.agreements = res;
       });
 
+      this._specialtiesService
+        .readCompanySpecialties(companyId)
+        .subscribe((res) => {
+          this.specialties = res;
+        });
+
       this.form.get('date')?.enable();
       this.form.get('agreementId')?.enable();
       this.form.get('paymentMethodId')?.enable();
+      this.form.get('specialtyId')?.enable();
       this.form.get('reason')?.enable();
     }
   }

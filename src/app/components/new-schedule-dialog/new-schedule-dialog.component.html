@@ -24,6 +24,32 @@
       </mat-form-field>
 
       <mat-form-field class="form__container__field" appearance="outline">
+        <mat-label>Tipo</mat-label>
+        <mat-select formControlName="procedureId">
+          <mat-option [value]="1">Presencial</mat-option>
+
+          <mat-option [value]="2">Teleconsulta</mat-option>
+
+          <ng-template #noData>No Data Available</ng-template>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="form__container__field" appearance="outline">
+        <mat-label>Especialidade</mat-label>
+        <mat-select formControlName="specialtyId">
+          <ng-container *ngIf="specialties?.length; else noData">
+            <mat-option
+              [value]="specialty.id"
+              *ngFor="let specialty of specialties"
+              >{{ specialty.name }}</mat-option
+            >
+          </ng-container>
+
+          <ng-template #noData>No Data Available</ng-template>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="form__container__field" appearance="outline">
         <mat-label>Data</mat-label>
         <input
           matInput

@@ -74,8 +74,6 @@ export class NewScheduleDialogComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
-      console.log(this.form.value);
-
       const { companyId, ...formValue } = this.form.value;
 
       this._schedulesService

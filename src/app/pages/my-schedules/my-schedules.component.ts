@@ -42,8 +42,6 @@ export class MySchedulesComponent implements OnInit {
     this._schedulesHttpService
       .readUserSchedules()
       .subscribe((schedules: IScheduling[]) => {
-        console.log('schedules', schedules);
-
         this.tableData = schedules.map((schedule) => {
           return {
             code: schedule.id,
@@ -86,6 +84,8 @@ export class MySchedulesComponent implements OnInit {
     const endMinutesFormatted =
       endMinutes < 10 ? `0${endMinutes}` : `${endMinutes}`;
 
-    return `${start.getDate()}/${start.getMonth()}/${start.getFullYear()} ${startHoursFormatted}:${startMinutesFormatted} - ${endHoursFormatted}:${endMinutesFormatted}`;
+    return `${start.getDate()}/${
+      start.getMonth() + 1
+    }/${start.getFullYear()} ${startHoursFormatted}:${startMinutesFormatted} - ${endHoursFormatted}:${endMinutesFormatted}`;
   }
 }

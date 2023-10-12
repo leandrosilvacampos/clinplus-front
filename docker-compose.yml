@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+  app:
+    container_name: clin_plus_front
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "4200:4200"
+    volumes:
+      - .:/app

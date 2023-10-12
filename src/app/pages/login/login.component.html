@@ -38,14 +38,14 @@
     </mat-card-content>
     <mat-card-actions>
       <button
-        [disabled]="form.invalid"
+        [disabled]="form.invalid || loading"
         mat-raised-button
         color="primary"
         type="submit"
         class="login__button"
         (click)="login()"
       >
-        Login
+        {{ loading ? "Carregando..." : "Entrar" }}
       </button>
     </mat-card-actions>
   </mat-card>

@@ -10,6 +10,7 @@ import { AuthHttpService } from 'src/app/services/auth.service';
 })
 export class LoginComponent implements OnInit {
   form!: FormGroup;
+  loading = false;
 
   constructor(
     private _authService: AuthHttpService,
@@ -25,6 +26,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.loading = true;
     const formValue = this.form.value;
 
     this._authService.login(formValue.email, formValue.password).subscribe({
@@ -33,6 +35,9 @@ export class LoginComponent implements OnInit {
       },
       error: (error) => {
         console.error(error);
+      },
+      complete: () => {
+        this.loading = false;
       },
     });
   }

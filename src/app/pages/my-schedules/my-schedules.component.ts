@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { CustomPaginator } from 'src/app/components/custom-paginator';
+import { NewScheduleDialogComponent } from 'src/app/components/new-schedule-dialog/new-schedule-dialog.component';
 import { IScheduling } from 'src/app/core/interfaces/scheduling';
 import { SchedulesHttpService } from 'src/app/services/schedules.service';
 
@@ -31,7 +33,10 @@ export class MySchedulesComponent implements OnInit {
   dataSource = new MatTableDataSource<ITableData>([]);
   tableData: ITableData[] = [];
 
-  constructor(private _schedulesHttpService: SchedulesHttpService) {}
+  constructor(
+    public dialog: MatDialog,
+    private _schedulesHttpService: SchedulesHttpService
+  ) {}
 
   ngOnInit(): void {
     this._schedulesHttpService
@@ -58,7 +63,12 @@ export class MySchedulesComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  // Format date to format "dd/mm/yyyy hh:mm - hh:mm"
+  openDialog(): void {
+    this.dialog.open(NewScheduleDialogComponent, {
+      width: '700px',
+    });
+  }
+
   private _formatDate(startDate: string, endDate: string): string {
     const start = new Date(startDate);
     const end = new Date(endDate);

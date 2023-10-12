@@ -1,4 +1,9 @@
-.table-container {
+.my-schedules__table-options {
+  display: flex;
+  justify-content: space-between;
+}
+
+.my-schedules__table-container {
   position: relative;
   overflow: auto;
   border: 1px solid #e5e5e5;

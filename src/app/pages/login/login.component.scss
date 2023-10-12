@@ -22,4 +22,8 @@
   .login__button {
     width: 100%;
   }
+
+  .mat-mdc-raised-button:not(:disabled) {
+    background-color: #0083e2;
+  }
 }

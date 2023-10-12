@@ -1,36 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 import { NewScheduleDialogComponent } from 'src/app/components/new-schedule-dialog/new-schedule-dialog.component';
+import { IUser } from 'src/app/core/interfaces/user';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent {
-  fillerContent = Array.from(
-    { length: 50 },
-    () =>
-      `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-       labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-       laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-       voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-       cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
-  );
+export class HomeComponent implements OnInit {
+  user: IUser | null = null;
+  userSubscription!: Subscription;
 
-  animal: string = '';
-  name: string = '';
+  constructor(public dialog: MatDialog, private _userService: UserService) {}
 
-  constructor(public dialog: MatDialog) {}
+  ngOnInit(): void {
+    this.userSubscription = this._userService.user.subscribe(
+      (user) => (this.user = user)
+    );
+  }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(NewScheduleDialogComponent, {
-      data: { name: this.name, animal: this.animal },
+    this.dialog.open(NewScheduleDialogComponent, {
       width: '700px',
     });
+  }
 
-    dialogRef.afterClosed().subscribe((result) => {
-      this.animal = result;
-    });
+  get firstName(): string {
+    if (!this.user) return '';
+
+    const results = this.user.name.split(/\s+/);
+
+    if (results) {
+      return results[0];
+    }
+
+    return '';
   }
 }

@@ -34,8 +34,17 @@
   flex: 1 1 auto;
 }
 
-.app__toolbar__profile__logout {
-  cursor: pointer;
+.app__toolbar__profile {
+  font-size: 16px;
+  font-weight: normal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .mdc-list-item--with-two-lines .mdc-list-item__primary-text,
+  .mdc-list-item--with-three-lines .mdc-list-item__primary-text {
+    color: #fff;
+  }
 }
 
 .app__sidenavContainer_content__breadcrumb {

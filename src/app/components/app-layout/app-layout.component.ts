@@ -12,14 +12,9 @@ import { UserService } from 'src/app/core/services/user.service';
 })
 export class AppLayoutComponent implements OnDestroy, OnInit {
   user: IUser | null = null;
-
   userSubscription!: Subscription;
-
   opened: boolean = true;
-
   mobileQuery: MediaQueryList;
-
-  fillerNav = Array.from({ length: 5 }, (_, i) => `Nav Item ${i + 1}`);
 
   private _mobileQueryListener: () => void;
 

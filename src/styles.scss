@@ -26,3 +26,15 @@ body {
     --mat-snack-bar-button-color: #fff;
   }
 }
+
+.mat-mdc-fab.mat-primary,
+.mat-mdc-mini-fab.mat-primary {
+  --mdc-fab-container-color: #0083e2;
+  --mdc-fab-icon-color: #fff;
+  --mat-mdc-fab-color: #fff;
+}
+
+.mat-toolbar.mat-primary {
+  background: #0083e2;
+  color: #fff;
+}

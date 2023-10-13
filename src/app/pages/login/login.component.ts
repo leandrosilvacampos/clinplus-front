@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthHttpService } from 'src/app/services/auth.service';
 
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private _authService: AuthHttpService,
     private _formBuilder: FormBuilder,
-    private _router: Router
+    private _router: Router,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -33,8 +35,15 @@ export class LoginComponent implements OnInit {
       next: (response) => {
         this._router.navigateByUrl('/');
       },
-      error: (error) => {
-        console.error(error);
+      error: (err) => {
+        this.loading = false;
+
+        this._snackBar.open('E-mail ou senha incorretos', 'Ok', {
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+          duration: 3000,
+          panelClass: ['error-snackbar'],
+        });
       },
       complete: () => {
         this.loading = false;
